@@ -1,0 +1,16 @@
+{
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "extends": "airbnb",
+  "rules": {
+    "import/no-extraneous-dependencies": "off"
+  },
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "16.3"
+    }
+  }
+}
