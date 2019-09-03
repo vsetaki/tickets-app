@@ -1,0 +1,1 @@
+export const UPDATE_SORTING = 'UPDATE_SORTING';
