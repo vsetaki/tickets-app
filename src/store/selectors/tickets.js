@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 import { getSorting } from './sorting';
-import { SORTING } from '../../constants';
+import { SORTING, VISIBLE_TICKETS } from '../../constants';
 import { getDurationFromTicket } from '../../utils';
 
 // eslint-disable-next-line no-underscore-dangle
-const _getTickets = (state) => state.get('tickets');
+const _getTickets = state => state.get('tickets');
 
 export const getTickets = createSelector(
   [_getTickets, getSorting],
@@ -13,12 +13,12 @@ export const getTickets = createSelector(
       return [];
     }
 
-    if (sorting === SORTING.PRICE) {
-      return tickets.sortBy((item) => item.get(sorting)).toJS();
-    }
+    let resultTickets = tickets;
 
-    if (sorting === SORTING.DURATION) {
-      return tickets.sort((a, b) => {
+    if (sorting === SORTING.PRICE.value) {
+      resultTickets = tickets.sortBy(item => item.get(sorting));
+    } else if (sorting === SORTING.DURATION.value) {
+      resultTickets = tickets.sort((a, b) => {
         const durationA = getDurationFromTicket(a);
         const durationB = getDurationFromTicket(b);
         if (durationA < durationB) {
@@ -28,9 +28,9 @@ export const getTickets = createSelector(
           return 1;
         }
         return 0;
-      }).toJS();
+      });
     }
 
-    return tickets.toJS();
+    return resultTickets.slice(0, VISIBLE_TICKETS).toJS();
   },
 );

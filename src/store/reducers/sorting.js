@@ -1,7 +1,7 @@
 import { UPDATE_SORTING } from '../actionTypes/sorting';
 import { SORTING } from '../../constants';
 
-const initialState = SORTING.PRICE;
+const initialState = SORTING.PRICE.value;
 
 export default function (state = initialState, action) {
   switch (action.type) {

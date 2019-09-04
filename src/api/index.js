@@ -3,7 +3,7 @@ import { parseResponse } from '../utils';
 const baseUrl = 'https://front-test.beta.aviasales.ru';
 
 /**
- * @typedef {object} Ticket
+ * @typedef {object} Segment
  * @property {string} origin
  * @property {string} destination
  * @property {string} date
@@ -13,10 +13,9 @@ const baseUrl = 'https://front-test.beta.aviasales.ru';
 
 /**
  * @typedef {object} Tickets
- * @property {string} searchId
  * @property {number} price
  * @property {string} carrier
- * @property {Ticket[]} segments
+ * @property {Segment[]} segments
  */
 
 /**
@@ -36,5 +35,5 @@ export const getSearchId = () => fetch(`${baseUrl}/search`)
  * @property {boolean} stop
  * @return {Promise<TicketsResponse>}
  */
-export const getTickets = (searchId) => fetch(`${baseUrl}/tickets?searchId=${searchId}`)
+export const getTickets = searchId => fetch(`${baseUrl}/tickets?searchId=${searchId}`)
   .then(parseResponse);
