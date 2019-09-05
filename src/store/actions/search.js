@@ -13,12 +13,12 @@ export const stopSearchProcessAction = () => ({
   type: STOP_SEARCH_PROCESS,
 });
 
-export const updateSearchIdAction = (payload) => ({
+export const updateSearchIdAction = payload => ({
   type: UPDATE_SEARCH_ID,
   payload,
 });
 
-export const setErrorAction = (payload) => ({
+export const setErrorAction = payload => ({
   type: SET_SEARCH_ERROR,
   payload,
 });

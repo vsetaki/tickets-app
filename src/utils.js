@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const isDevelopment = () => {
   try {
     return process.env.NODE_ENV === 'development';
@@ -48,3 +50,24 @@ export const pluralize = (i, variants) => {
 
   return variants[variant];
 };
+
+/**
+ * Возвращает время в формате 1 д 2 ч 25 м
+ * @param {number} value
+ * @param {string} unit единица измерения (по-умолчанию минуты)
+ * @returns {string}
+ */
+export const getFormattedDuration = (value, unit = 'minutes') => {
+  const duration = moment.duration(value, unit);
+  const daysCount = duration.get('days');
+  const hoursCount = duration.get('hours');
+  const minutesCount = duration.get('minutes');
+
+  const days = daysCount ? `${daysCount}д ` : '';
+  const hours = hoursCount ? `${hoursCount}ч ` : '';
+  const minutes = minutesCount ? `${minutesCount}м ` : '';
+
+  return `${days}${hours}${minutes}`;
+};
+
+export const flattenValue = array => Object.keys(array).reduce((acc, val) => acc + val, '');

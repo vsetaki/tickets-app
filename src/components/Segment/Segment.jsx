@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { addMinutes, format, differenceInMilliseconds } from 'date-fns/esm';
-import { pluralize } from '../../utils';
+import moment from 'moment';
+import { pluralize, getFormattedDuration } from '../../utils';
 
 const pluralStops = ['пересадка', 'пересадки', 'пересадок'];
 const pluralizeStops = value => pluralize(value, pluralStops);
@@ -15,8 +15,11 @@ const StyledContainer = styled.div`
 const StyledSegmentItem = styled.div`
   width: 140px;
 `;
+
 const StyledCaption = styled.div`
   color: ${props => props.theme.colors.label};
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 `;
 
 const StyledText = styled.div`
@@ -33,9 +36,8 @@ const Segment = ({
   ...props
 }) => {
   const stopsCount = stops.length;
-  const dateObject = new Date(date);
-  // TODO: посчитать правильно время в пути
-  const durationText = format(differenceInMilliseconds(addMinutes(dateObject, duration), dateObject), 'dд Hч mм');
+  const dateObject = moment.parseZone(date);
+  const durationText = getFormattedDuration(duration);
   return (
     <StyledContainer {...props}>
       <StyledSegmentItem>
@@ -43,7 +45,7 @@ const Segment = ({
           {`${origin} - ${destination}`}
         </StyledCaption>
         <StyledText>
-          {format(dateObject, 'HH:mm')}
+          {dateObject.format('HH:mm')}
         </StyledText>
       </StyledSegmentItem>
       <StyledSegmentItem>

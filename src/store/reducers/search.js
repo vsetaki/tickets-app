@@ -3,7 +3,9 @@ import {
   UPDATE_SEARCH_ID, START_SEARCH_PROCESS, STOP_SEARCH_PROCESS, SET_SEARCH_ERROR,
 } from '../actionTypes/search';
 
-const initialState = Map();
+const initialState = Map({
+  processing: false,
+});
 
 export default function (state = initialState, action) {
   switch (action.type) {

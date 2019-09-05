@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import theme from './theme';
 
 export default createGlobalStyle`
   * {
@@ -8,6 +9,10 @@ export default createGlobalStyle`
   }
 
   html {
+    color: ${theme.colors.content};
+  }
+
+  html, button {
     font-size: 12px;
     font-family: 'Open Sans', sans-serif;
   }

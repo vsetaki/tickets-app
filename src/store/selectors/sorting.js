@@ -1,1 +1,1 @@
-export const getSorting = (state) => state.get('sorting');
+export const getSorting = state => state.get('sorting');

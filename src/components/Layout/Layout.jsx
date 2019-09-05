@@ -4,13 +4,13 @@ import styled from 'styled-components';
 
 import SortingContainer from '../../containers/SortingContainer';
 import TicketsContainer from '../../containers/TicketsContainer';
-import globe from '../../images/globe.svg';
-import plane from '../../images/plane.svg';
+import FilterContainer from '../../containers/FilterContainer';
+import PlaneLogo from '../PlaneLogo';
 
 const StyledContainer = styled.div`
   width: 754px; /* wtf?! */
   margin: 0 auto;
-  padding-top: 50px;
+  padding-top: 59px;
 `;
 
 const StyledMain = styled.div`
@@ -26,49 +26,22 @@ const StyledSection = styled.section`
   width: 502px;
 `;
 
-const StyledLogoBg = styled.img`
-  position: absolute;
-`;
-
-const StyledLogoPlane = styled.img`
-  position: absolute;
-  z-index: 2;
-  top: 14px;
-  transition: all ease 1000ms;
-`;
-
-const StyledLogo = styled.button`
-  width: 82px;
-  height: 89px;
-  margin: 0 auto 50px;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
-  border: 0;
-  background: none;
-  align-items: center;
-
-  /* :focus ${StyledLogoPlane} {
-    transform: rotate3d(0, 0, 1, 360deg);
-  } */
-`;
-
 const StyledSortingContainer = styled(SortingContainer)`
   margin-bottom: ${props => props.theme.spacing}px;
 `;
 
-const Layout = ({ startSearchProcess }) => (
+const StyledPlaneLogo = styled(PlaneLogo)`
+  margin: 0 auto 31px;
+`;
+
+const Layout = ({ processing, startSearchProcess }) => (
   <StyledContainer>
     <header>
-      <StyledLogo onClick={startSearchProcess} role="button">
-        <StyledLogoBg src={globe} alt="" />
-        <StyledLogoPlane src={plane} alt="" />
-      </StyledLogo>
+      <StyledPlaneLogo animate={processing} onClick={startSearchProcess} />
     </header>
     <StyledMain>
       <StyledSidebar>
-        {/* <FiltersContainer /> */}
+        <FilterContainer />
       </StyledSidebar>
       <StyledSection>
         <StyledSortingContainer />
@@ -79,6 +52,7 @@ const Layout = ({ startSearchProcess }) => (
 );
 
 Layout.propTypes = {
+  processing: PropTypes.bool.isRequired,
   startSearchProcess: PropTypes.func.isRequired,
 };
 

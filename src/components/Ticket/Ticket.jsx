@@ -11,16 +11,19 @@ import Logo from '../Logo';
 const StyledTop = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: ${props => props.theme.spacing}px;
+  margin-bottom: 11px;
 `;
 
 const StyledPrice = styled.span`
   font-size: 24px;
   color: ${props => props.theme.colors.primary};
+  font-weight: 600;
 `;
 
 const StyledSegment = styled(Segment)`
-  margin-bottom: 10px;
+  & + & {
+    margin-top: 13px;
+  }
 `;
 
 const StyledLogo = styled(Logo)`
