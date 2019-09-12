@@ -16,11 +16,21 @@ export const getTicketsCount = state => (getTicketsRaw(state) ? getTicketsRaw(st
 export const getTickets = createSelector(
   [getTicketsRaw, getSorting, getFilters],
   (tickets, sorting, filter) => {
-    if (!tickets || !tickets.size) {
+    if (!tickets || !tickets.size || !Object.keys(filter).length) {
       return null;
     }
 
     let resultTickets = tickets;
+
+    if (flattenValue(filter) !== STOPS_ALL_VALUE) {
+      const stops = Object.keys(filter);
+      resultTickets = resultTickets.filter((item) => {
+        const stops0 = item.getIn(['segments', '0', 'stops']);
+        const stops1 = item.getIn(['segments', '1', 'stops']);
+
+        return stops.includes(String(stops0.size)) && stops.includes(String(stops1.size));
+      });
+    }
 
     if (sorting === SORTING.PRICE.value) {
       resultTickets = tickets.sortBy(item => item.get(sorting));
@@ -35,20 +45,6 @@ export const getTickets = createSelector(
           return 1;
         }
         return 0;
-      });
-    }
-
-    if (!Object.keys(filter).length) {
-      return null;
-    }
-
-    if (flattenValue(filter) !== STOPS_ALL_VALUE) {
-      const stops = Object.keys(filter);
-      resultTickets = resultTickets.filter((item) => {
-        const stops0 = item.getIn(['segments', '0', 'stops']);
-        const stops1 = item.getIn(['segments', '1', 'stops']);
-
-        return stops.includes(String(stops0.size)) && stops.includes(String(stops1.size));
       });
     }
 
